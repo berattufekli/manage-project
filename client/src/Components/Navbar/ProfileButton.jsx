@@ -3,6 +3,7 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import Contributor from '../../Pages/Application/Project/components/Contributors/Contributor'
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { PiSignOutBold } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 function ProfileButton() {
   return (
@@ -38,14 +39,15 @@ function ProfileButton() {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                  <Link
+                    to={"/sign-in"}
                     className={`${
                       active ? 'transition-all bg-gray-700 text-gray-100' : 'transition-all text-gray-700'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
                   >
                     <PiSignOutBold fontSize={"1.5em"} className='mr-2 rotate-180'/>
                     Sign Out
-                  </button>
+                  </Link>
                 )}
               </Menu.Item>
             </div>
