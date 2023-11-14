@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "mysql_admin",
+    "password": "Berat.123",
+    "database": "project_management",
+    "host": "localhost",
+    "port": "3306",
+    "dialect": "mysql"
+  }
+}
