@@ -1,5 +1,6 @@
 const expressAsyncHandler = require("express-async-handler");
 const db = require("../../models/application");
+const authHelpers = require("../../helpers/auth/auth");
 
 exports.register = expressAsyncHandler(async (req, res) => {
   try {
@@ -13,4 +14,8 @@ exports.register = expressAsyncHandler(async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+exports.login = expressAsyncHandler(async (req, res) => {
+  authHelpers.sendJwtToClient(req, res);
 });

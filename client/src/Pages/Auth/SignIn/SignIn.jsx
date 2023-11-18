@@ -2,6 +2,9 @@ import React from 'react'
 import useForm from '../../../Hooks/useForm';
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { login } from '../../../Store/auth/authSlice';
+
 
 const defaultFormState = {
   email: "",
@@ -9,7 +12,12 @@ const defaultFormState = {
 }
 
 function SignIn() {
+  const dispatch = useDispatch();
   const { form, handleChange } = useForm(defaultFormState);
+
+  const handleSubmit = () => {
+    dispatch(login(form));
+  }
   return (
     <div className='flex h-full justify-center items-center w-full'>
       <div className='flex flex-col gap-6'>
@@ -50,6 +58,7 @@ function SignIn() {
         </div>
 
         <button
+          onClick={handleSubmit}
           className='bg-indigo-600 hover:bg-indigo-500 transition-all text-white font-bold py-2 rounded-lg shadow-lg'>
           Sign In
         </button>

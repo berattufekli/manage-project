@@ -28,15 +28,20 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
       },
-      createdDate: {
-        type: DataTypes.DATE,
-        defaultValue: new Date(),
+      role: {
+        type: DataTypes.ENUM("manager", "member"),
+        defaultValue: "member",
       },
       status: {
         type: DataTypes.ENUM("active", "passive"),
         defaultValue: "active",
       },
-      
+      createdDate: {
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+      },
+
+
     },
     {
       sequelize,

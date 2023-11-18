@@ -5,7 +5,7 @@ import Item from './Item'
 
 function SectionLayout({ sectionTitle, count }) {
   return (
-    <div className='bg-gray-100 rounded-lg shadow-sm p-4 flex flex-col gap-4'>
+    <div className=' ring-1 mb-7 bg-gray-50 ring-gray-100 rounded-lg shadow-sm p-4 flex flex-col gap-4'>
       <div className='flex justify-between items-center'>
         <div className='flex gap-2 items-center'>
           <p className='font-bold text-md text-gray-700'>{sectionTitle}</p>
@@ -28,7 +28,7 @@ function SectionLayout({ sectionTitle, count }) {
         taskTypeText={"text-purple-700"}
       />
 
-      <button className='flex justify-center items-center transition-all hover:bg-gray-300 py-2 rounded-md ring-1 ring-gray-400 font-bold text-gray-500 text-sm'>
+      <button className='flex justify-center items-center transition-all bg-white shadow-md py-2 rounded-md  font-bold text-gray-700 text-sm'>
         Add Card
         <HiPlusSm className='ml-2' size={"1.7em"} />
 

@@ -68,13 +68,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      status: {
-        type: DataTypes.ENUM("active", "passive"),
-        defaultValue: "active",
+      name: {
+        type: DataTypes.STRING,
       },
-      createdDate: {
-        type: DataTypes.DATE,
-        defaultValue: new Date(),
+      surname: {
+        type: DataTypes.STRING,
+      },
+      userType: {
+        type: DataTypes.ENUM("user", "admin"),
+        defaultValue: "user",
       },
       expireDate: {
         type: DataTypes.DATE,
@@ -86,14 +88,17 @@ module.exports = (sequelize, DataTypes) => {
       resetTokenExpire: {
         type: DataTypes.DATE,
       },
-      name: {
-        type: DataTypes.STRING,
-      },
-      surname: {
-        type: DataTypes.STRING,
-      },
+
       url: {
         type: DataTypes.STRING,
+      },
+      status: {
+        type: DataTypes.ENUM("active", "passive"),
+        defaultValue: "active",
+      },
+      createdDate: {
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
       },
     },
     {

@@ -4,7 +4,7 @@ import { BsCalendar4, BsClipboard2Check } from 'react-icons/bs'
 
 function Item({ taskTitle, taskType, taskTypeBg, taskTypeText }) {
   return (
-    <div className='bg-white flex flex-col ring-2 ring-gray-300 shadow-sm rounded-md p-2'>
+    <div className='bg-white ring-1 ring-indigo-50 flex flex-col shadow-lg rounded-md p-2'>
       <p className='font-bold text-gray-700'>{taskTitle}</p>
 
       <div className='flex items-end justify-between mt-2'>
@@ -16,7 +16,7 @@ function Item({ taskTitle, taskType, taskTypeBg, taskTypeText }) {
         </div>
       </div>
 
-      <div className='h-1 my-4 rounded-lg bg-gray-100' />
+      <div className='h-[2px] my-4 rounded-lg bg-gray-100' />
 
       <div className='flex justify-between items-center'>
         <p className='flex text-gray-700 gap-1 text-sm font-bold'>

@@ -27,6 +27,26 @@ export const register = createAsyncThunk(
   }
 );
 
+export const login = createAsyncThunk(
+  "auth/login",
+  async (credentials, { dispatch, state }) => {
+    try {
+      const response = await axiosConfig.post(`api/auth/login`, credentials);
+      const data = response.data;
+
+
+
+      if (data.success && data && data.access_token) {
+        localStorage.setItem("token", data.access_token);
+      }
+
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {

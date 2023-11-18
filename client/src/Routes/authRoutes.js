@@ -1,7 +1,14 @@
 import SignIn from "../Pages/Auth/SignIn/SignIn";
 import SignUp from "../Pages/Auth/SignUp/SignUp";
+import Landing from "../Pages/Landing/Landing";
 
 const routes = [
+  {
+    name: "Landing",
+    route: "/",
+    key: "/",
+    component: <Landing />,
+  },
   {
     name: "Sign Up",
     route: "/sign-up",

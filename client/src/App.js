@@ -8,8 +8,13 @@ import MainLayout from './Layout/MainLayout';
 import mainRoutes from "./Routes/applicationRoutes";
 import mainSubRoutes from "./Routes/applicationSubRoutes";
 import authRoutes from "./Routes/authRoutes";
+import { useSelector } from 'react-redux';
+import LandingLayout from './Layout/LandingLayout';
 
 function App() {
+
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  console.log(isAuthenticated);
 
   const renderRoutes = (routes) => {
     return routes.map((route) => {
@@ -17,14 +22,24 @@ function App() {
     })
   }
 
+  if (isAuthenticated) {
+    return (
+      <MainLayout>
+        <Routes>
+          {renderRoutes(mainRoutes)}
+          {renderRoutes(mainSubRoutes)}
+          {renderRoutes(authRoutes)}
+        </Routes>
+      </MainLayout>
+    )
+  }
+
   return (
-    <MainLayout>
+    <LandingLayout>
       <Routes>
-        {renderRoutes(mainRoutes)}
-        {renderRoutes(mainSubRoutes)}
         {renderRoutes(authRoutes)}
       </Routes>
-    </MainLayout>
+    </LandingLayout>
   );
 }
 
