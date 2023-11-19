@@ -15,4 +15,10 @@ route.post(
   authController.login,
 )
 
+route.post(
+  "/access-token-panel",
+  authMiddleware.getAccessToRoute,
+  authController.autoLogin
+)
+
 module.exports = route;

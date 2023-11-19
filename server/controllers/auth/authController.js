@@ -18,4 +18,8 @@ exports.register = expressAsyncHandler(async (req, res) => {
 
 exports.login = expressAsyncHandler(async (req, res) => {
   authHelpers.sendJwtToClient(req, res);
+});;
+
+exports.autoLogin = expressAsyncHandler(async (req, res) => {
+  authHelpers.sendLoginDataToClient(req, res, req.access_token);
 });

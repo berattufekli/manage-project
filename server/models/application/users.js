@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
         let payload = {};
         payload = {
-          userName: this.userName,
+          email: this.email,
           name: this.name,
           userType: this.userType,
         };

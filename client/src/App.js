@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 
 import MainLayout from './Layout/MainLayout';
@@ -8,13 +8,25 @@ import MainLayout from './Layout/MainLayout';
 import mainRoutes from "./Routes/applicationRoutes";
 import mainSubRoutes from "./Routes/applicationSubRoutes";
 import authRoutes from "./Routes/authRoutes";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LandingLayout from './Layout/LandingLayout';
+import setAuthToken from './Hooks/api/setAuthToken';
+import { useEffect } from 'react';
+import { loadUser } from './Store/auth/authSlice';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 
 function App() {
-
+  const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
   console.log(isAuthenticated);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
 
   const renderRoutes = (routes) => {
     return routes.map((route) => {
@@ -28,19 +40,22 @@ function App() {
         <Routes>
           {renderRoutes(mainRoutes)}
           {renderRoutes(mainSubRoutes)}
-          {renderRoutes(authRoutes)}
+          <Route path="*" element={<Navigate to={"/dashboard"} />} />
         </Routes>
       </MainLayout>
     )
   }
 
-  return (
-    <LandingLayout>
-      <Routes>
-        {renderRoutes(authRoutes)}
-      </Routes>
-    </LandingLayout>
-  );
+  if (!isAuthenticated) {
+    return (
+      <LandingLayout>
+        <Routes>
+          {renderRoutes(authRoutes)}
+          <Route path="*" element={<Navigate to={"/"} />} />
+        </Routes>
+      </LandingLayout>
+    );
+  }
 }
 
 export default App;

@@ -4,8 +4,16 @@ import Contributor from '../../Pages/Application/Project/components/Contributors
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { PiSignOutBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logout } from '../../Store/auth/authSlice';
 
 function ProfileButton() {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   return (
     <div className="text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -28,26 +36,24 @@ function ProfileButton() {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className={`${
-                      active ? 'transition-all bg-gray-700 text-gray-100' : 'transition-all text-gray-700'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
+                    className={`${active ? 'transition-all bg-gray-700 text-gray-100' : 'transition-all text-gray-700'
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
                   >
-                    <MdOutlinePersonOutline  fontSize={"1.5em"} className='mr-2'/>
+                    <MdOutlinePersonOutline fontSize={"1.5em"} className='mr-2' />
                     Profile
                   </button>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <Link
-                    to={"/sign-in"}
-                    className={`${
-                      active ? 'transition-all bg-gray-700 text-gray-100' : 'transition-all text-gray-700'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
+                  <button
+                    onClick={handleLogout}
+                    className={`${active ? 'transition-all bg-gray-700 text-gray-100' : 'transition-all text-gray-700'
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm font-bold`}
                   >
-                    <PiSignOutBold fontSize={"1.5em"} className='mr-2 rotate-180'/>
+                    <PiSignOutBold fontSize={"1.5em"} className='mr-2 rotate-180' />
                     Sign Out
-                  </Link>
+                  </button>
                 )}
               </Menu.Item>
             </div>

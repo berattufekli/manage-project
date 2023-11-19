@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosConfig from "../../Hooks/api/axiosConfig";
-import axios from "axios";
+import setAuthToken from "../../Hooks/api/setAuthToken";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -47,6 +47,44 @@ export const login = createAsyncThunk(
   }
 );
 
+export const loadUser = createAsyncThunk(
+  "auth/loadUser", async () => {
+    try {
+      if (localStorage.token) {
+        setAuthToken(localStorage.token);
+      }
+      const response = await axiosConfig.post(`api/auth/access-token-panel`, {
+        token: localStorage.token,
+      });
+      const data = response.data;
+      console.log("success", response.data.success);
+      if (response.data.success) {
+        if (data) {
+          return data;
+        }
+      } else {
+        console.log(
+          "Üyelik Bitti",
+          "Lütfen satış danışmanınızla iletişime geçiniz"
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const logout = createAsyncThunk("auth/logout", async () => {
+  try {
+    localStorage.removeItem("token");
+    return {
+      token: null,
+      isAuthenticated: false,
+      loading: false,
+    };
+  } catch (error) { }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -56,7 +94,9 @@ const authSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-
+    [login.fulfilled]: (state, action) => action.payload,
+    [logout.fulfilled]: (state, action) => action.payload,
+    [loadUser.fulfilled]: (state, action) => action.payload,
   },
 });
 

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb'
 import Tabs from './components/Tab/Tabs'
 import Sidebar from '../../../Components/Sidebar/Sidebar'
 import { useDispatch } from 'react-redux'
 import { getProjects } from '../../../Store/main/projectsSlice'
+import Loading from '../../../Components/Loading/Loading'
 
 function ProjectDashboard() {
-
   const dispatch = useDispatch();
 
   useEffect(() => {

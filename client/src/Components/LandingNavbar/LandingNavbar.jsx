@@ -8,7 +8,9 @@ function LandingNavbar() {
     <div className='fixed justify-center items-center w-full'>
       <div className='flex  items-center justify-between  bg-gray-700 container m-auto mt-4 py-3 px-4 rounded-lg shadow-lg'>
         <div className='flex gap-10'>
-          <img src={Logo} alt="logo" className='w-6 cursor-pointer' />
+          <Link className='flex justify-center items-center' to={"/"}>
+            <img src={Logo} alt="logo" className='w-6 cursor-pointer' />
+          </Link>
 
           <Link
             to={"/"}
@@ -24,7 +26,7 @@ function LandingNavbar() {
             className={`text-white font-semibold p-2 
             ${location.pathname === "/features" ? 'bg-indigo-600 hover:bg-indigo-500' : "bg-transparent hover:bg-indigo-600"} 
             transition-all  rounded-md`
-          }
+            }
           >
             Features
           </Link>
@@ -33,7 +35,7 @@ function LandingNavbar() {
             className={`text-white font-semibold p-2 
             ${location.pathname === "/about-us" ? 'bg-indigo-600 hover:bg-indigo-500' : "bg-transparent hover:bg-indigo-600"} 
             transition-all  rounded-md`
-          }
+            }
           >
             About Us
           </Link>
@@ -42,7 +44,7 @@ function LandingNavbar() {
 
 
 
-        <Link className='bg-indigo-600 hover:bg-indigo-500 transition-all text-white font-semibold py-2 px-4 shadow-md rounded-md' to={"/sign-in"}>Sign In</Link>
+        <Link className={`${location.pathname === "/sign-in" ? "bg-indigo-600" : "ring-2 ring-indigo-500"} hover:bg-indigo-500 transition-all text-white font-semibold py-2 px-4 shadow-md rounded-md`} to={"/sign-in"}>Sign In</Link>
       </div>
     </div>
   )

@@ -8,19 +8,17 @@ import { collection, updateDoc, deleteDoc, getDocs, doc, setDoc, getDoc } from "
 import { db, storage } from "../../lib/firebase";
 import { uid } from "uid";
 import { ref, uploadString } from "@firebase/storage";
+import axiosConfig from "../../Hooks/api/axiosConfig";
 
 export const getProjects = createAsyncThunk(
   "projects/getProjects",
   async () => {
-    const artistsCollection = collection(db, "projects");
-    const querySnapshot = await getDocs(artistsCollection);
+    const response = await axiosConfig.get(
+      `/api/projects`,
+    );
 
-    const projectsData = [];
-    querySnapshot.forEach((doc) => {
-      projectsData.push({ ...doc.data() });
-    });
-
-    return projectsData;
+    let { data } = await response.data;
+    return data;
   }
 );
 
@@ -28,25 +26,13 @@ export const addProject = createAsyncThunk(
   "projects/addProject",
   async (project, { dispatch, getState }) => {
     try {
-      const projectId = uid(24); // Generate a unique project ID (make sure you have the 'uid' function)
-      const createdDate = Date.now();
+      const response = await axiosConfig.post(
+        "/api/projects",
+        project,
+      );
 
-      // Create a reference to the Firebase Firestore document
-      const projectData = {
-        ...project,
-        projectId,
-        createdDate,
-      };
-      const projectDocRef = doc(db, "projects", projectId);
-      await setDoc(projectDocRef, projectData);
-
-      // Create a reference to Firebase Storage where you want to upload the image
-      const photoRef = ref(storage, `projectPhotos/${project.name}`);
-
-      // Upload the image in base64 format
-      await uploadString(photoRef, project.photo, "data_url");
-
-      return { ...projectData, success: true };
+      let { data } = await response.data;
+      return data;
     } catch (error) {
       console.error(error);
       return null;
