@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 
-function UploadPhoto({ setInForm }) {
+function UploadPhoto({ form, setPhoto }) {
   const fileInputRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewPhoto, setPreviewPhoto] = useState(null);
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -14,27 +14,28 @@ function UploadPhoto({ setInForm }) {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
-      setInForm("photo", selectedFile);
-      setSelectedImage(URL.createObjectURL(selectedFile));
+      setPreviewPhoto(URL.createObjectURL(selectedFile));
+      
+      setPhoto(selectedFile);
     }
   };
 
   const handleRemove = () => {
-    setSelectedImage(null);
-    setInForm("photo", "");
+    setPreviewPhoto(null);
+    setPhoto(null);
   }
 
   return (
     <div className="mt-2 flex items-center gap-x-3">
 
       {
-        selectedImage ?
+        previewPhoto ?
           <div className='flex'>
             <img
               className="h-24 w-24 text-gray-300 bg-gray-100 object-cover rounded-xl"
               aria-hidden="true"
-              src={selectedImage}
-              alt={selectedImage.name}
+              src={previewPhoto}
+              alt={previewPhoto.name}
             />
           </div>
           :
@@ -43,7 +44,7 @@ function UploadPhoto({ setInForm }) {
       }
 
       {
-        selectedImage && <button
+        previewPhoto && <button
           type="button"
           className="rounded-md bg-red-500  px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-red-400 hover:bg-red-400"
           onClick={handleRemove}
@@ -56,7 +57,7 @@ function UploadPhoto({ setInForm }) {
         className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
         onClick={handleButtonClick}
       >
-        {selectedImage ? "Change" : "Upload Photo"}
+        {previewPhoto ? "Change" : "Upload Photo"}
       </button>
       <input
         type="file"

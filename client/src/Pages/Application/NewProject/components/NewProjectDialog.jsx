@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PrioritySelect from './PrioritySelect'
 import UploadPhoto from './UploadPhoto'
 import Team from './Team'
@@ -10,7 +10,7 @@ const defualtFormState = {
   projectName: "",
   projectDescription: "",
   priority: "low",
-  photo: "",
+  url: "",
   team: [
     { userId: 1, role: "member" }
   ]
@@ -20,10 +20,14 @@ function NewProjectDialog() {
   const dispatch = useDispatch();
   const { userId } = useSelector(state => state.auth);
   const { form, handleChange, setInForm } = useForm(defualtFormState);
+  const [photo, setPhoto] = useState(null);
 
   const handleSubmit = () => {
-
-    dispatch(addProject(form));
+    let data = {
+      ...form,
+      url: photo,
+    }
+    dispatch(addProject(data));
   };
 
   useEffect(() => {
@@ -76,7 +80,7 @@ function NewProjectDialog() {
 
         <div className='col-span-2'>
           <h3 className='font-bold text-lg text-gray-600'>Project Cover</h3>
-          <UploadPhoto setInForm={setInForm} />
+          <UploadPhoto setInForm={setInForm} form={form} photo={photo} setPhoto={setPhoto}/>
         </div>
 
         <div className='col-span-2'>

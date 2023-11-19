@@ -64,22 +64,29 @@ class Controller {
         image && image.originalname && fileName ? fileName : "";
       let url = photoUrlNew;
       console.log("re.bod", req.body);
+      console.log("file", req.file);
+      console.log(image, photoUrlNew, url);
 
       const dataToSend = await this.model.create({ ...req.body, url });
 
       switch (this.model) {
         case db.projects:
-          const teamData = [];
+          
+          let team = req.body.team;
 
-          let { team } = req.body;
+          if(team){
+            team = JSON.parse(team);
+          }
+
+          let teamList = [];
 
           team && team.length > 0 &&
             team.map((member) => {
               let row = { ...member, projectId: dataToSend.projectId };
-              teamData.push(row);
+              teamList.push(row);
             })
 
-          await db.projectmembers.bulkCreate(teamData);
+          await db.projectmembers.bulkCreate(teamList);
 
           let dataProjects = await db.projects.findOne({
             where: {

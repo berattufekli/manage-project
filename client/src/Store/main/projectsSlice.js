@@ -4,11 +4,8 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 
-import { collection, updateDoc, deleteDoc, getDocs, doc, setDoc, getDoc } from "@firebase/firestore";
-import { db, storage } from "../../lib/firebase";
-import { uid } from "uid";
-import { ref, uploadString } from "@firebase/storage";
 import axiosConfig from "../../Hooks/api/axiosConfig";
+import axios from "axios";
 
 export const getProjects = createAsyncThunk(
   "projects/getProjects",
@@ -26,9 +23,24 @@ export const addProject = createAsyncThunk(
   "projects/addProject",
   async (project, { dispatch, getState }) => {
     try {
+      let formData = new FormData();
+      formData.append("projectName", project.projectName);
+      formData.append("projectDescription", project.projectDescription);
+      formData.append("priority", project.priority);
+      formData.append("url", project.url);
+      formData.append("team", JSON.stringify(project.team));
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          boundary: formData._boundaries,
+        },
+      };
+
       const response = await axiosConfig.post(
         "/api/projects",
-        project,
+        formData,
+        config
       );
 
       let { data } = await response.data;

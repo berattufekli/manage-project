@@ -14,7 +14,11 @@ function getRoute(model, controller, id, options) {
   //ekleyebilmek icin disardan controller alabiliyoruz.
   if (!controller) controller = new Controller(model);
 
-  route.post("", multerHelper.save, controller.createWithUrl);
+  route.post(
+    "",
+    multerHelper.save,
+    controller.createWithUrl
+  );
   route.get("", controller.getAll);
 
   //query
